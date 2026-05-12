@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마에스트로의 시대 - 바이브 코딩 특강</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- HTML to Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#09090b',
+                            dark: '#18181b',
+                            accent: '#06b6d4', // Cyan
+                            neon: '#3b82f6', // Blue
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #27272a;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+        .poster-container {
+            width: 100%;
+            max-width: 800px;
+            background: #09090b;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            color: white;
+        }
+        .no-print { display: flex; }
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print w-full max-w-[800px] flex justify-between items-center mb-4 bg-zinc-800 p-4 rounded-lg shadow">
+        <p class="text-sm text-zinc-300 font-medium">✨ 2차 버전(다크 테마). 우측 상단 'Preview'로 확인하세요.</p>
+        <button onclick="downloadPoster()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-2 rounded-md font-bold flex items-center transition-colors">
+            <i data-lucide="download" class="w-4 h-4 mr-2"></i>
+            이미지로 저장하기
+        </button>
+    </div>
+
+    <div id="poster-content" class="poster-container flex flex-col relative overflow-hidden">
+        
+        <!-- Background elements -->
+        <div class="absolute inset-0 grid-pattern opacity-30 pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Hero Section -->
+        <div class="px-10 pt-16 pb-10 relative z-10 text-center border-b border-zinc-800">
+            <div class="inline-flex items-center space-x-2 bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-full mb-6">
+                <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+                <span class="text-cyan-400 font-bold text-sm tracking-wide">바이브 코딩(Vibe Coding) 실전</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-normal py-2 mb-4 break-keep tracking-tight">
+                아직도 직접 코딩하십니까?<br/>
+                이제 당신은 <span class="text-cyan-400">'지휘'</span>만 하십시오.
+            </h1>
+            
+            <p class="text-xl text-zinc-400 font-light break-keep mt-4 leading-relaxed">
+                AI를 비서로 거느리고 시스템을 통제하는 <strong class="text-white">마에스트로의 시대</strong>.<br/>
+                당신의 사업 아이디어, 단 2시간 만에 바이브코딩으로 홍보가 실현 됩니다.
+            </p>
+        </div>
+
+        <!-- Core Value Section -->
+        <div class="px-10 py-10 relative z-10">
+            <div class="flex flex-col gap-5">
+                <!-- Feature 1 -->
+                <div class="bg-zinc-900/80 border border-zinc-800 p-5 rounded-2xl flex items-center gap-6 group hover:border-cyan-500/50 transition-colors">
+                    <div class="bg-zinc-800 w-16 h-16 shrink-0 rounded-xl flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform shadow-lg">
+                        <i data-lucide="zap" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                            압도적인 속도, 2시간 컷
+                            <span class="text-[10px] bg-cyan-500/20 text-cyan-400 px-2 py-0.5 rounded border border-cyan-500/30">NotebookLM & AI봇</span>
+                        </h3>
+                        <p class="text-zinc-400 text-sm break-keep leading-relaxed">며칠씩 걸리던 기획과 코딩은 끝났습니다. AI로 즉시 웹사이트를 생성하고 전 세계에 배포할수 있습니다.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-zinc-900/80 border border-zinc-800 p-5 rounded-2xl flex items-center gap-6 group hover:border-blue-500/50 transition-colors">
+                    <div class="bg-zinc-800 w-16 h-16 shrink-0 rounded-xl flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform shadow-lg">
+                        <i data-lucide="folder-kanban" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">원스탑 디지털 자산 구축</h3>
+                        <p class="text-zinc-400 text-sm break-keep leading-relaxed">진행했던 업무약력을 하나의 '포트폴리오 허브'로 통합. 유지비 없는 나만의 24시간 홍보 전초기지를 운영하세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mindset Section -->
+        <div class="px-10 py-2 relative z-10">
+            <div class="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 border border-cyan-500/20 rounded-2xl p-6 text-center">
+                <h2 class="text-xl font-bold text-white mb-2 break-keep">
+                    "완벽한 기획보다 100번의 실행으로 실력을 만듭니다"
+                </h2>
+                <p class="text-cyan-400 text-sm font-medium">비용 제로 스파링! 실패 타격 없는 Lean 방식으로 시장을 테스트하세요.</p>
+            </div>
+        </div>
+
+        <!-- Info & Footer -->
+        <div class="px-10 pb-12 pt-8 relative z-10">
+            <div class="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 flex justify-between items-center">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="calendar" class="w-5 h-5 text-zinc-500"></i>
+                        <span class="text-white font-bold tracking-wide">2026. 5. 18 (월) 19:00 ~ 21:00</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-zinc-500"></i>
+                        <span class="text-zinc-300 text-sm">실습 중심 워크숍 (노트북 지참 필수)</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="ticket" class="w-5 h-5 text-zinc-500"></i>
+                        <span class="text-cyan-400 font-bold">무료 <span class="text-zinc-500 font-normal text-xs ml-1">(파일럿 한정)</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-6 text-zinc-500 text-xs tracking-wider">
+                주최: 공동체 IT 사회적협동조합 | 강사: 김종혁 이사
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Download as Image Function
+        function downloadPoster() {
+            const button = document.querySelector('.no-print');
+            const poster = document.getElementById('poster-content');
+            
+            const originalText = button.innerHTML;
+            button.innerHTML = '저장 중...';
+            button.style.opacity = '0.7';
+
+            html2canvas(poster, {
+                scale: 2, 
+                useCORS: true,
+                backgroundColor: '#09090b'
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = '바이브코딩_특강_마에스트로_포스터.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                button.innerHTML = originalText;
+                button.style.opacity = '1';
+            });
+        }
+    </script>
+</body>
+</html>
